@@ -131,19 +131,57 @@
         }
 
         .footer {
+            margin-top: 40px;
+            border-top: 1px solid #21262d;
+            padding-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+ 
+        .footer-whoami {
             font-size: 0.9rem;
             color: #6e7681;
-            opacity: 0.7;
-            margin-top: 40px;
         }
-
-        .footer a {
-            color: #58a6ff;
+ 
+        .footer-whoami .prompt {
+            color: #3fb950;
+            margin-bottom: 2px;
+        }
+ 
+        .footer-whoami .answer {
+            color: #c9d1d9;
+        }
+ 
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+        }
+ 
+        .footer-link {
+            font-size: 0.85rem;
+            color: #6e7681;
             text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #21262d;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
         }
-
-        .footer a:hover {
-            text-decoration: underline;
+ 
+        .footer-link:hover {
+            color: #c9d1d9;
+            border-color: #444c56;
+            background-color: #161b22;
+        }
+ 
+ 
+ 
+        .footer-bottom {
+            font-size: 0.75rem;
+            color: #6e7681;
+            opacity: 0.5;
         }
 
         .cursor {
@@ -215,13 +253,19 @@
             <a href="https://endadwagon.xyz/FirstLogonAnim" class="link-item bracket-link" data-platform="oobe" target="_blank">Win11 OOBE Animation</a>
         </div>
 
-        <div class="footer">
-            <p>$ whoami</p>
-            <p>AN ALCOHOLIC 🔥🔥🔥🔥</p>
-            <br>
-            <p>Site hosted on Github pages, shoutout to them :)</p>
-            <p><a href="https://github.com/endadwagon/endadwagon.xyz" target="_blank">Source Repo</a></p>
-        </div>
+        <footer class="footer">
+            <div class="footer-whoami">
+                <p class="prompt">$ whoami</p>
+                <p class="answer">AN ALCOHOLIC 🔥🔥🔥🔥</p>
+            </div>
+ 
+            <div class="footer-links">
+                <a href="https://endadwagon.xyz/lost-devices" class="footer-link" target="_blank">Found a lost device?</a>
+                <a href="https://github.com/endadwagon/endadwagon.xyz" class="footer-link" target="_blank">Page source (Github)</a>
+            </div>
+ 
+            <p class="footer-bottom">Site hosted on Github pages, shoutout to them :)</p>
+        </footer>
     </div>
 
     <script>
@@ -238,14 +282,14 @@
                     link.style.transform = 'translateX(0)';
                 }, index * 100 + 500);
             });
-
+ 
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     console.log('> get out u bomb');
                 }
             });
         });
-
+ 
         document.querySelectorAll('.link-item').forEach(link => {
             link.addEventListener('click', function() {
                 console.log(`> Navigating to ${this.textContent}...`);
