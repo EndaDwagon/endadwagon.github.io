@@ -1,0 +1,298 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap');
+  .dash { font-family: 'Syne', sans-serif; padding: 0; }
+  .ticker-bar { background: #0a0a0a; color: #00ff88; font-family: 'Space Mono', monospace; font-size: 11px; padding: 6px 0; overflow: hidden; white-space: nowrap; border-bottom: 1px solid #1a1a1a; }
+  .ticker-inner { display: inline-block; animation: scroll 28s linear infinite; }
+  @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .ticker-item { display: inline-block; margin: 0 24px; }
+  .tick-up { color: #00ff88; } .tick-down { color: #ff4455; }
+  .header { background: #0a0a0a; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #1a1a1a; }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: #fff; letter-spacing: -0.5px; }
+  .logo span { color: #00ff88; }
+  .header-right { display: flex; align-items: center; gap: 16px; font-size: 12px; }
+  .badge { background: #00ff8820; color: #00ff88; border: 1px solid #00ff8840; padding: 3px 10px; border-radius: 20px; font-family: 'Space Mono', monospace; font-size: 10px; }
+  .badge.live { animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.5; } }
+  .username { color: #888; font-size: 12px; font-family: 'Space Mono', monospace; }
+  .main { display: grid; grid-template-columns: 1fr 260px; gap: 0; min-height: 520px; background: #0d0d0d; }
+  .left { padding: 20px; border-right: 1px solid #1a1a1a; }
+  .right { padding: 20px; background: #0a0a0a; }
+  .pnl-hero { margin-bottom: 20px; }
+  .pnl-label { font-size: 11px; color: #555; font-family: 'Space Mono', monospace; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .pnl-amount { font-size: 42px; font-weight: 800; color: #00ff88; line-height: 1; letter-spacing: -1px; }
+  .pnl-sub { font-size: 13px; color: #444; margin-top: 6px; font-family: 'Space Mono', monospace; }
+  .pnl-sub span { color: #00ff88; }
+  .chart-tabs { display: flex; gap: 0; margin-bottom: 12px; border-bottom: 1px solid #1a1a1a; }
+  .tab { font-size: 11px; padding: 6px 14px; color: #444; cursor: pointer; font-family: 'Space Mono', monospace; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .15s; }
+  .tab.active { color: #00ff88; border-bottom-color: #00ff88; }
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+  .stat-card { background: #111; border: 1px solid #1a1a1a; border-radius: 8px; padding: 12px; }
+  .stat-l { font-size: 10px; color: #444; font-family: 'Space Mono', monospace; margin-bottom: 4px; }
+  .stat-v { font-size: 16px; font-weight: 700; color: #eee; }
+  .stat-v.green { color: #00ff88; }
+  .stat-v.red { color: #ff4455; }
+  .section-title { font-size: 11px; color: #444; font-family: 'Space Mono', monospace; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+  .position-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #141414; }
+  .pos-ticker { font-weight: 700; color: #eee; font-size: 13px; }
+  .pos-name { font-size: 10px; color: #444; font-family: 'Space Mono', monospace; }
+  .pos-shares { font-size: 11px; color: #555; font-family: 'Space Mono', monospace; }
+  .pos-pnl { text-align: right; }
+  .pos-pnl-val { font-size: 13px; font-weight: 700; }
+  .pos-pct { font-size: 10px; font-family: 'Space Mono', monospace; }
+  .green { color: #00ff88; } .red { color: #ff4455; }
+  .activity-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #141414; font-size: 11px; }
+  .act-type { font-size: 9px; padding: 2px 6px; border-radius: 3px; font-family: 'Space Mono', monospace; font-weight: 700; }
+  .act-buy { background: #00ff8820; color: #00ff88; }
+  .act-sell { background: #ff445520; color: #ff4455; }
+  .act-name { color: #888; margin-top: 3px; font-family: 'Space Mono', monospace; }
+  .act-amount { text-align: right; color: #eee; font-family: 'Space Mono', monospace; }
+  .act-time { color: #444; font-size: 10px; }
+</style>
+
+<div class="dash">
+  <div class="ticker-bar">
+    <div class="ticker-inner">
+      <span class="ticker-item">NVDA <span class="tick-up">▲ 1,208.44 +4.21%</span></span>
+      <span class="ticker-item">TSLA <span class="tick-down">▼ 182.63 -1.08%</span></span>
+      <span class="ticker-item">AAPL <span class="tick-up">▲ 211.80 +0.93%</span></span>
+      <span class="ticker-item">MSFT <span class="tick-up">▲ 431.20 +1.54%</span></span>
+      <span class="ticker-item">SPY <span class="tick-up">▲ 527.10 +0.77%</span></span>
+      <span class="ticker-item">AMD <span class="tick-down">▼ 164.22 -0.44%</span></span>
+      <span class="ticker-item">META <span class="tick-up">▲ 513.88 +2.10%</span></span>
+      <span class="ticker-item">AMZN <span class="tick-up">▲ 198.34 +1.33%</span></span>
+      <span class="ticker-item">GOOGL <span class="tick-down">▼ 173.10 -0.21%</span></span>
+      <span class="ticker-item">COIN <span class="tick-up">▲ 244.77 +5.88%</span></span>
+      <span class="ticker-item">NVDA <span class="tick-up">▲ 1,208.44 +4.21%</span></span>
+      <span class="ticker-item">TSLA <span class="tick-down">▼ 182.63 -1.08%</span></span>
+      <span class="ticker-item">AAPL <span class="tick-up">▲ 211.80 +0.93%</span></span>
+      <span class="ticker-item">MSFT <span class="tick-up">▲ 431.20 +1.54%</span></span>
+      <span class="ticker-item">SPY <span class="tick-up">▲ 527.10 +0.77%</span></span>
+      <span class="ticker-item">AMD <span class="tick-down">▼ 164.22 -0.44%</span></span>
+      <span class="ticker-item">META <span class="tick-up">▲ 513.88 +2.10%</span></span>
+      <span class="ticker-item">AMZN <span class="tick-up">▲ 198.34 +1.33%</span></span>
+    </div>
+  </div>
+
+  <div class="header">
+    <div class="logo">Apex<span>Trade</span></div>
+    <div class="header-right">
+      <span class="badge live">● LIVE</span>
+      <span class="username">@benjaminnetanyahu</span>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="left">
+      <div class="pnl-hero">
+        <div class="pnl-label">Total P&L — 7 Day</div>
+        <div class="pnl-amount">+$1,047,382</div>
+        <div class="pnl-sub">Portfolio value $3,241,889 &nbsp;·&nbsp; <span>+47.7% this week</span></div>
+      </div>
+
+      <div class="chart-tabs">
+        <div class="tab active">1W</div>
+        <div class="tab">1M</div>
+        <div class="tab">3M</div>
+        <div class="tab">1Y</div>
+        <div class="tab">ALL</div>
+      </div>
+
+      <div style="position:relative;width:100%;height:200px;margin-bottom:20px;">
+        <canvas id="mainChart" role="img" aria-label="Portfolio value over the past week, rising from about 2.2M to 3.24M">Portfolio grew from $2.19M to $3.24M over 7 days.</canvas>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-l">Day Gain</div>
+          <div class="stat-v green">+$84,210</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-l">Win Rate</div>
+          <div class="stat-v green">81%</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-l">Trades</div>
+          <div class="stat-v">247</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-l">Sharpe</div>
+          <div class="stat-v green">4.21</div>
+        </div>
+      </div>
+
+      <div class="section-title">Open Positions</div>
+      <div class="position-row">
+        <div>
+          <div class="pos-ticker">NVDA</div>
+          <div class="pos-name">NVIDIA Corp</div>
+          <div class="pos-shares">142 shares</div>
+        </div>
+        <div style="flex:1;padding:0 12px;">
+          <div style="position:relative;height:28px;"><canvas id="nvdaSpk" role="img" aria-label="NVDA sparkline"></canvas></div>
+        </div>
+        <div class="pos-pnl">
+          <div class="pos-pnl-val green">+$318,442</div>
+          <div class="pos-pct green">+38.4%</div>
+        </div>
+      </div>
+      <div class="position-row">
+        <div>
+          <div class="pos-ticker">TSLA</div>
+          <div class="pos-name">Tesla Inc</div>
+          <div class="pos-shares">800 shares</div>
+        </div>
+        <div style="flex:1;padding:0 12px;">
+          <div style="position:relative;height:28px;"><canvas id="tslaSpk" role="img" aria-label="TSLA sparkline"></canvas></div>
+        </div>
+        <div class="pos-pnl">
+          <div class="pos-pnl-val red">-$12,800</div>
+          <div class="pos-pct red">-8.1%</div>
+        </div>
+      </div>
+      <div class="position-row">
+        <div>
+          <div class="pos-ticker">META</div>
+          <div class="pos-name">Meta Platforms</div>
+          <div class="pos-shares">610 shares</div>
+        </div>
+        <div style="flex:1;padding:0 12px;">
+          <div style="position:relative;height:28px;"><canvas id="metaSpk" role="img" aria-label="META sparkline"></canvas></div>
+        </div>
+        <div class="pos-pnl">
+          <div class="pos-pnl-val green">+$201,980</div>
+          <div class="pos-pct green">+65.2%</div>
+        </div>
+      </div>
+      <div class="position-row">
+        <div>
+          <div class="pos-ticker">COIN</div>
+          <div class="pos-name">Coinbase Global</div>
+          <div class="pos-shares">1,200 shares</div>
+        </div>
+        <div style="flex:1;padding:0 12px;">
+          <div style="position:relative;height:28px;"><canvas id="coinSpk" role="img" aria-label="COIN sparkline"></canvas></div>
+        </div>
+        <div class="pos-pnl">
+          <div class="pos-pnl-val green">+$539,760</div>
+          <div class="pos-pct green">+183.4%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="section-title" style="margin-bottom:16px;">Allocation</div>
+      <div style="position:relative;width:100%;height:160px;margin-bottom:8px;">
+        <canvas id="allocChart" role="img" aria-label="Portfolio allocation donut chart">NVDA 31%, COIN 28%, META 20%, TSLA 14%, Other 7%.</canvas>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:24px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;font-family:'Space Mono',monospace;">
+          <span style="display:flex;align-items:center;gap:6px;color:#888;"><span style="width:8px;height:8px;border-radius:2px;background:#00ff88;display:inline-block;"></span>NVDA</span><span style="color:#eee;">31%</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;font-family:'Space Mono',monospace;">
+          <span style="display:flex;align-items:center;gap:6px;color:#888;"><span style="width:8px;height:8px;border-radius:2px;background:#4488ff;display:inline-block;"></span>COIN</span><span style="color:#eee;">28%</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;font-family:'Space Mono',monospace;">
+          <span style="display:flex;align-items:center;gap:6px;color:#888;"><span style="width:8px;height:8px;border-radius:2px;background:#ff9900;display:inline-block;"></span>META</span><span style="color:#eee;">20%</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;font-family:'Space Mono',monospace;">
+          <span style="display:flex;align-items:center;gap:6px;color:#888;"><span style="width:8px;height:8px;border-radius:2px;background:#ff4455;display:inline-block;"></span>TSLA</span><span style="color:#eee;">14%</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;font-family:'Space Mono',monospace;">
+          <span style="display:flex;align-items:center;gap:6px;color:#888;"><span style="width:8px;height:8px;border-radius:2px;background:#555;display:inline-block;"></span>Other</span><span style="color:#eee;">7%</span>
+        </div>
+      </div>
+
+      <div class="section-title">Recent Activity</div>
+      <div class="activity-item">
+        <div><span class="act-type act-buy">BUY</span><div class="act-name">COIN × 400</div></div>
+        <div class="act-amount"><div>$97,908</div><div class="act-time">2h ago</div></div>
+      </div>
+      <div class="activity-item">
+        <div><span class="act-type act-sell">SELL</span><div class="act-name">AMD × 200</div></div>
+        <div class="act-amount"><div>$32,844</div><div class="act-time">5h ago</div></div>
+      </div>
+      <div class="activity-item">
+        <div><span class="act-type act-buy">BUY</span><div class="act-name">META × 150</div></div>
+        <div class="act-amount"><div>$77,082</div><div class="act-time">1d ago</div></div>
+      </div>
+      <div class="activity-item">
+        <div><span class="act-type act-buy">BUY</span><div class="act-name">NVDA × 50</div></div>
+        <div class="act-amount"><div>$60,422</div><div class="act-time">2d ago</div></div>
+      </div>
+      <div class="activity-item">
+        <div><span class="act-type act-sell">SELL</span><div class="act-name">TSLA × 100</div></div>
+        <div class="act-amount"><div>$18,263</div><div class="act-time">3d ago</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const portfolioData = [2194000, 2380000, 2710000, 2540000, 2920000, 3100000, 3241889];
+
+new Chart(document.getElementById('mainChart'), {
+  type: 'line',
+  data: {
+    labels: days,
+    datasets: [{
+      data: portfolioData,
+      borderColor: '#00ff88',
+      borderWidth: 2,
+      pointRadius: 3,
+      pointBackgroundColor: '#00ff88',
+      fill: true,
+      backgroundColor: (ctx) => {
+        const g = ctx.chart.ctx.createLinearGradient(0,0,0,200);
+        g.addColorStop(0,'rgba(0,255,136,0.18)');
+        g.addColorStop(1,'rgba(0,255,136,0.00)');
+        return g;
+      },
+      tension: 0.45
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: {
+      callbacks: { label: (c) => '$' + c.raw.toLocaleString() }
+    }},
+    scales: {
+      x: { grid: { color: '#1a1a1a' }, ticks: { color: '#444', font: { family: 'Space Mono', size: 10 } } },
+      y: { grid: { color: '#1a1a1a' }, ticks: { color: '#444', font: { family: 'Space Mono', size: 10 }, callback: v => '$' + (v/1000000).toFixed(1) + 'M' } }
+    }
+  }
+});
+
+function sparkline(id, data, color) {
+  new Chart(document.getElementById(id), {
+    type: 'line',
+    data: { labels: data.map((_,i)=>i), datasets: [{ data, borderColor: color, borderWidth: 1.5, pointRadius: 0, tension: 0.4, fill: false }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend:{display:false}, tooltip:{enabled:false} }, scales: { x:{display:false}, y:{display:false} } }
+  });
+}
+
+sparkline('nvdaSpk', [880,920,980,960,1050,1120,1208], '#00ff88');
+sparkline('tslaSpk', [198,205,192,178,185,179,182], '#ff4455');
+sparkline('metaSpk', [312,340,380,395,420,480,513], '#00ff88');
+sparkline('coinSpk', [86,104,140,178,200,228,244], '#00ff88');
+
+new Chart(document.getElementById('allocChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['NVDA','COIN','META','TSLA','Other'],
+    datasets: [{
+      data: [31,28,20,14,7],
+      backgroundColor: ['#00ff88','#4488ff','#ff9900','#ff4455','#333'],
+      borderWidth: 0,
+      hoverOffset: 4
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '70%',
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => c.label + ': ' + c.raw + '%' } } }
+  }
+});
+</script>
